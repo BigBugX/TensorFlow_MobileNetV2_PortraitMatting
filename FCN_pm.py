@@ -33,10 +33,8 @@ tf.flags.DEFINE_string('mode', "train", "Mode train/ test/ visualize")
 is_train = True
 
 MODEL_URL = 'http://www.vlfeat.org/matconvnet/models/beta16/imagenet-vgg-verydeep-19.mat'
-mnv2_param_path = "E:\\exp_data_backup\\TF_PetroWU\\AutoPortraitMatting_dup\\logs_mob2_backup\\model.ckpt-1450000.data-00000-of-00001"
-mnv2_model_path = "E:\\exp_data_backup\\TF_PetroWU\\AutoPortraitMatting_dup\\logs_mob2_backup\\model.ckpt-1450000.meta"
-#param_path = os.getcwd() + "\\M2test\\mv2_1_160\\mobilenet_v2_1.0_160.ckpt"
-#model_path = "E:\\exp_data_backup\\TF_PetroWU\\AutoPortraitMatting_dup\\mobilenet_v2_1.0_224\\mobilenet_v2_1.0_224.ckpt.meta"
+mnv2_param_path = os.getcwd()
+mnv2_model_path = os.getcwd()
 model_path = os.getcwd() + "\\M2test\\mv2_1_160\\mobilenet_v2_1.0_160.ckpt"
 
 MAX_ITERATION = int(1e5 + 1)
@@ -295,35 +293,7 @@ def pred():
         if ckpt and ckpt.model_checkpoint_path:
             saver.restore(sess, ckpt.model_checkpoint_path)
             print("Model restored...")
-        
-       # itr = 0
-        
-        # use when inferencing testing images provided by Shen
-        #for batch_count in range(0,1):
-        #    test_images, test_annotations, test_orgs = test_dataset_reader.next_batch()
-        """    
-            if len(test_annotations) > 0:
-                feed_dict = {image: test_images, annotation: test_annotations, keep_probability: 0.5}
-                preds = sess.run(pred_annotation, feed_dict=feed_dict)
-                org0_im = Image.fromarray(np.uint8(test_orgs[0]))
-                print(test_orgs[0].shape)
-                org0_im.save('res/org%d.jpg' % batch_count)
-                save_mask_img(test_annotations[0], 'res/ann%d' % batch_count)
-                save_mask_img(preds[0], 'res/pre%d' % batch_count)
-        
-        """
-        """
-        # use when inferencing your own images
-        testimage = misc.imread('.\\data\\testimg.jpg');
-        testimage = misc.imresize(testimage,(800,600));
-        inputtest = np.zeros([1,800,600,6])
-        inputtest[0,:,:,0] = testimage[:,:,0];
-        inputtest[0,:,:,1] = testimage[:,:,1];
-        inputtest[0,:,:,2] = testimage[:,:,2];
-        feed_dict = {image:inputtest, keep_probability:0.5}
-        preds = sess.run(pred_annotation, feed_dict=feed_dict)
-        save_mask_img(preds[0], '.\\data\\respretest');
-        """
+
         for batch_count in range(0,1):
             test_images, test_annotations, test_orgs = test_dataset_reader.next_batch()        
             if len(test_annotations) > 0:
