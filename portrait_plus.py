@@ -1,3 +1,4 @@
+__author__ = 'Will@PCVG'
 # An implementation based on "TF_PetroWU"
 
 import numpy as np
